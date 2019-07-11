@@ -1,2 +1,3 @@
-# C++ 运行结果
-LeetCode 刷题记录
+# LeetCode 刷题记录
+C++ ； 算法
+
