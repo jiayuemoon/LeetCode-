@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        //双指针法，从最外围开始遍历，每次让指向短的线段的指针移动，因为只有移动它我们的面积才可能增加
+        int i=0;
+        int j=height.size()-1;
+        int maxarea=0;
+        while(i<j){
+            int temp=(j-i)*min(height[i],height[j]);
+            if(maxarea<temp)
+                maxarea=temp;
+            if(height[i]<height[j])
+                i++;
+            else
+                j--;
+        }
+        return maxarea;
+    }
+};
