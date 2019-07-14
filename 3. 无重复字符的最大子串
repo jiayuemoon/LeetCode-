@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        //根据运行结果提示，需要考虑空字符串以及含有一个空格的字符串
+        if(s.length()==0)
+            return 0;
+        if(s.length()==1)
+            return 1;
+        //保存最终结果
+        int res=0;
+        //保存以固定字符开头的字符串的最大长度
+        int len=0;
+        string str;
+        //遍历字符串的每个字符
+        for(int i=0;i<s.length();i++){
+            //可以不写，因为每次len都是由str决定的
+            //len=0;
+            str=s[i];
+            for(int j=i+1;j<s.length();j++){
+                //当前字符与字符串中的任意字符没有重复
+                if(str.find(s[j])==string::npos){
+                    str+=s[j];
+                    len=str.length();
+                }
+                //有重复则不需要继续遍历后面的字符，取开头字符的下一个字符继续遍历
+                else{
+                    len=str.length();
+                    break;
+                }
+            }
+            //更新res
+            if(len>res)
+                res=len;
+        }
+        return res;
+    }
+};
