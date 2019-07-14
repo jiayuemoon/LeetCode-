@@ -1,0 +1,49 @@
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        if(s=="")
+            return s;
+        //动态规划
+        int len=s.length();
+        //二维数组方便记忆化搜索
+        //为1表示是回文字符串
+        int dp[len][len];
+        memset(dp,0,sizeof(dp));
+        
+        //初始化字符串的最长回文子串长度以及起始位置
+        int max=1;
+        int start=0;
+        //初始化dp
+        //考虑回文子串长度为1和2的情况
+        for(int i=0;i<len;i++){
+            //只有一个字符的肯定是回文字符串
+            dp[i][i]=1;
+            //连续2个字符相同的字符串也是回文字符串
+            //这里必须对start和max进行赋值，否则如果该字符串没有长度大于2的回文串就会出问题
+            if(i<len-1&&s[i]==s[i+1]){
+                dp[i][i+1]=1;
+                max=2;
+                start=i;
+            }
+            
+        }
+        //防止出现只有1个字符的回文串问题（回文串需要是靠后的）
+        if(max==1){
+            start=len-1;
+        }
+        //考虑回文子串长度为3---len的情况(不可以倒过来，因为需要借助dp数组进行记忆化搜索)
+        for(int i=3;i<=len;i++){            
+            for(int j=0;j+i-1<len;j++){
+                //j=字符串的起始位置
+                //考察的字符串的尾位置
+                int end=j+i-1;
+                if(s[j]==s[end]&&dp[j+1][end-1]==1){
+                    dp[j][end]=1;
+                    start=j;//根据题目要求，即使是相同长度的回文串，输出也只能是靠后的回文子串，故这里的start需要更新
+                    max=i;
+                }
+            }
+        }
+        return s.substr(start,max);
+    }
+};
