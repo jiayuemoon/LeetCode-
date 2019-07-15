@@ -1,0 +1,71 @@
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> res;
+        
+        //双指针，剪枝优化
+        sort(nums.begin(),nums.end());
+        
+        //剪枝
+        if(nums.empty()||nums[0]>0||nums[nums.size()-1]<0)
+            return {};
+        
+        
+        int fix;
+        int l,r;
+        for(int i=0;i<nums.size();i++){
+            fix=nums[i];
+            //后面的数加上这个数不可能凑成0
+            if(fix>0)
+                break;
+            //剪枝，避免重复
+            if(i>0&&fix==nums[i-1])
+                continue;
+            
+            l=i+1;
+            r=nums.size()-1;
+            while(l<r){
+                int sum=fix+nums[l]+nums[r];
+                if(sum==0){
+                    res.push_back(vector<int>{fix,nums[l],nums[r]});
+                    
+                    //以下2个循环去重
+                    while(l<r && nums[l]==nums[l+1])
+                        l++;
+                    while(l<r && nums[r]==nums[r-1])
+                        r--;
+                    
+                    l++;
+                    r--;
+                    
+                    /*
+                    //左/右指针还是停留在初始的位置
+                    if(l==i+1 || r==nums.size()-1){
+                        res.push_back(vector<int>{fix,nums[l],nums[r]});
+                        l++;
+                        r--;
+                    }
+                    else if(nums[l]==nums[l-1]){
+                        l++;
+                    }
+                    else if(nums[r]==nums[r+1]){
+                        r--;
+                    }
+                    else{
+                        res.push_back(vector<int>{fix,nums[l],nums[r]});
+                        l++;
+                        r--;
+                    }
+                    */
+                }
+                else if(sum<0){
+                    l++;
+                }
+                else{
+                    r--;
+                }
+            }
+        }
+        return res;
+    }
+};
