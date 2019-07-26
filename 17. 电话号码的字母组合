@@ -1,0 +1,27 @@
+class Solution {
+public:
+    
+    //数字和字母的映射
+    map<string,string> mp={{"2","abc"},{"3","def"},{"4","ghi"},{"5","jkl"},{"6","mno"},{"7","pqrs"},{"8","tuv"},{"9","wxyz"}};
+    vector<string> res;//存放最终结果
+    void dfs(string cur,string next){
+        //全部处理完了
+        if(next.size()==0)
+            res.push_back(cur);
+        else{
+            string l=next.substr(0,1);//取出尚未处理的第一个数字
+            string le=mp[l];//取出该数字对应的字母
+            for(int i=0;i<le.size();i++){
+                dfs(cur+le[i],next.substr(1));
+            }
+        }
+            
+    }
+    
+    vector<string> letterCombinations(string digits) {
+        //深度优先遍历
+        if(digits.size()!=0)
+            dfs("",digits);
+        return res;
+    }
+};
