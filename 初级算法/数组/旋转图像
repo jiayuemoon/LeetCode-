@@ -1,0 +1,36 @@
+题目：
+
+给定一个 n × n 的二维矩阵表示一个图像。
+将图像顺时针旋转 90 度。
+说明：
+你必须在原地旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要使用另一个矩阵来旋转图像。
+
+
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+        //发现一个规律，反转每一列的元素，然后交换主对角线左右两侧的元素，就得到对应的旋转90°的矩阵了
+        int t;
+        for(int i=0;i<matrix[0].size();i++){
+            int l=0;
+            int r=matrix.size()-1;
+            //交换一列的元素
+            while(l<r){
+                swap(matrix[l][i],matrix[r][i]);
+                l++;
+                r--;
+            }
+        }
+        //交换对角线两侧的元素
+        //遍历下三角元素
+        for(int i=0;i<matrix.size();i++){
+            for(int j=0;j<i;j++){
+                swap(matrix[i][j],matrix[j][i]);
+            }
+        }
+    }
+};
+
+
+出现以下错误是因为数组访问越界：
+Line 922: Char 34: runtime error: reference binding to misaligned address 0xbebebebebebebebe for type 'value_type', which requires 4 byte alignment (stl_vector.h)
