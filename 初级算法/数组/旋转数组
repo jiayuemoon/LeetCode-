@@ -1,0 +1,17 @@
+题目：
+
+给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。
+要求使用空间复杂度为 O(1) 的 原地 算法。
+
+
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        //向右移动k个位置即被右移出去的元素会出现在最前面且逆序
+        //k可能超过数组长度需要取模
+        k%=nums.size();
+        reverse(nums.begin(),nums.end());
+        reverse(nums.begin(),nums.begin()+k);
+        reverse(nums.begin()+k,nums.end());
+    }
+};
