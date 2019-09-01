@@ -1,0 +1,40 @@
+题目：
+
+给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
+说明：本题中，我们将空字符串定义为有效的回文串。
+
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        /*
+        //方法1：失败，没有考虑到题目中要求的只考虑数字和字母
+        string str=s;
+        //将字符串中的大写转成小写(str记录从后到前的字符串)
+        transform(str.begin(),str.end(),str.begin(),::tolower);
+        
+        s=str;
+        //将str反转
+        reverse(str.begin(),str.end());
+        cout<<s<<endl;
+        cout<<str<<endl;
+        if(s==str)
+            return true;
+        else
+            return false;
+       */
+        //方法2：脱胎于方法1，只需要剔除非数字和非字母的字符
+        transform(s.begin(),s.end(),s.begin(),::tolower);
+        string str="";
+        for(int i=0;i<s.size();i++){
+            if((s[i]>='0'&&s[i]<='9')||(s[i]>='a'&&s[i]<='z')){
+                str+=s[i];
+            }
+        }
+        s=str;
+        reverse(str.begin(),str.end());
+        if(s==str)
+            return true;
+        else
+            return false;
+    }
+};
