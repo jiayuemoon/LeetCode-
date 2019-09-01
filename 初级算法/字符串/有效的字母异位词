@@ -1,0 +1,30 @@
+题目：
+
+给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。
+
+说明:
+你可以假设字符串只包含小写字母。
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        //类似上一题，用空间复杂度为26的数组存储第一个字符串的字符以及对应的次数
+        //减少复杂度
+        if(s.size()!=t.size())
+            return false;
+        int a[26]={0};
+        //计数
+        for(int i=0;i<s.size();i++){
+            a[s[i]-'a']++;
+        }
+        //抵消
+        for(int i=0;i<t.size();i++){
+            if(a[t[i]-'a']==0)
+                return false;
+            else{
+                a[t[i]-'a']--;
+            }
+        }
+        return true;
+    }
+};
