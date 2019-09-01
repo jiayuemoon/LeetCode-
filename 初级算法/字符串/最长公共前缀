@@ -1,0 +1,43 @@
+题目：
+
+编写一个函数来查找字符串数组中的最长公共前缀。
+如果不存在公共前缀，返回空字符串 ""。
+
+说明:
+所有输入只包含小写字母 a-z 。
+
+
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        if(strs.size()==0)
+            return "";
+        //对所有字符串的每个字符进行检查，以第一个字符串为基准
+        //寻找最短的字符串长度，公共前缀长度不可能超过它
+        int min_length=INT_MAX;
+        for(int i=0;i<strs.size();i++){
+            if(strs[i].size()<min_length)
+                min_length=strs[i].size();
+        }
+        char a;
+        string ans="";
+        int flag=0;
+        //一个一个字符的比较
+        for(int i=0;i<min_length;i++){
+            a=strs[0][i];
+            for(int j=1;j<strs.size();j++){
+                if(strs[j][i]!=a){
+                    flag=1;
+                    break;
+                }
+            }
+            if(flag==1){
+                break;
+            }
+            else{
+                ans+=a;
+            }
+        }
+        return ans;
+    }
+};
